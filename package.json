@@ -1,0 +1,13 @@
+{
+    "name": "butterfly",
+    "version": "4.1.0",
+    "description": "Butterfly real-time chat with accounts, email verification, profiles and friends",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "dependencies": {
+        "nodemailer": "^7.0.6",
+        "ws": "^8.18.0"
+    }
+}

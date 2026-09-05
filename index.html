@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Butterfly</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<!-- =========================================
+     AUTH SCREEN
+========================================= -->
+
+<section
+    id="authScreen"
+    class="screen"
+>
+
+    <div class="auth-card">
+
+        <img
+            src="resources/images/logo.png"
+            class="login-logo"
+            alt="Butterfly"
+        >
+
+        <h1>Butterfly</h1>
+
+        <p class="subtitle">
+            Connect with your friends.
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <div
+            id="loginView"
+            class="auth-view"
+        >
+
+            <form id="loginForm">
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <button
+                id="showRegister"
+                class="link-button"
+                type="button"
+            >
+                Create an account
+            </button>
+
+            <button
+                id="showRecovery"
+                class="link-button"
+                type="button"
+            >
+                Forgot your account?
+            </button>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div
+            id="registerView"
+            class="auth-view hidden"
+        >
+
+            <form id="registerForm">
+
+                <input
+                    id="registerUsername"
+                    type="text"
+                    maxlength="24"
+                    placeholder="Username"
+                    autocomplete="username"
+                    required
+                >
+
+                <input
+                    id="registerEmail"
+                    type="email"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <input
+                    id="registerPasswordConfirm"
+                    type="password"
+                    placeholder="Confirm password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <button
+                id="showLoginFromRegister"
+                class="link-button"
+                type="button"
+            >
+                Already have an account?
+            </button>
+
+        </div>
+
+
+        <!-- RECOVERY -->
+
+        <div
+            id="recoveryView"
+            class="auth-view hidden"
+        >
+
+            <form id="recoveryRequestForm">
+
+                <input
+                    id="recoveryEmail"
+                    type="email"
+                    placeholder="Account email"
+                    required
+                >
+
+                <button type="submit">
+                    Send Recovery Code
+                </button>
+
+            </form>
+
+
+            <form
+                id="recoveryResetForm"
+                class="hidden"
+            >
+
+                <input
+                    id="recoveryCode"
+                    type="text"
+                    maxlength="6"
+                    placeholder="6-digit code"
+                    inputmode="numeric"
+                    required
+                >
+
+                <input
+                    id="recoveryNewPassword"
+                    type="password"
+                    placeholder="New password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <input
+                    id="recoveryNewPasswordConfirm"
+                    type="password"
+                    placeholder="Confirm password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <button type="submit">
+                    Reset Password
+                </button>
+
+            </form>
+
+
+            <button
+                id="showLoginFromRecovery"
+                class="link-button"
+                type="button"
+            >
+                Back to Login
+            </button>
+
+        </div>
+
+
+        <!-- VERIFICATION -->
+
+        <div
+            id="verificationView"
+            class="auth-view hidden"
+        >
+
+            <p>
+                Check your email for your
+                verification code.
+            </p>
+
+            <form id="verificationForm">
+
+                <input
+                    id="verificationCode"
+                    type="text"
+                    maxlength="6"
+                    placeholder="6-digit code"
+                    inputmode="numeric"
+                    required
+                >
+
+                <button type="submit">
+                    Verify Email
+                </button>
+
+            </form>
+
+            <button
+                id="resendVerificationButton"
+                class="link-button"
+                type="button"
+            >
+                Resend verification email
+            </button>
+
+        </div>
+
+
+        <p
+            id="authStatus"
+            class="auth-status"
+        ></p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CHAT
+========================================= -->
+
+<section
+    id="chatScreen"
+    class="screen hidden"
+>
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <img
+                src="resources/images/logo.png"
+                class="header-logo"
+                alt="Butterfly"
+            >
+
+            <span>Butterfly</span>
+
+        </div>
+
+
+        <div class="topbar-actions">
+
+            <button
+                id="shareButton"
+                type="button"
+            >
+                Share
+            </button>
+
+            <button
+                id="profileButton"
+                type="button"
+                class="profile-button"
+            >
+
+                <img
+                    id="headerAvatar"
+                    class="avatar avatar-small"
+                    src="resources/images/logo.png"
+                    alt="Profile"
+                >
+
+                <span id="headerUsername">
+                    User
+                </span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="chat-layout">
+
+
+        <!-- =================================
+             SIDEBAR
+        ================================== -->
+
+        <aside class="sidebar">
+
+
+            <section class="sidebar-section">
+
+                <h2>Friends</h2>
+
+                <div id="friendsList"></div>
+
+            </section>
+
+
+            <section class="sidebar-section">
+
+                <h2>Friend Requests</h2>
+
+                <div id="friendRequests"></div>
+
+            </section>
+
+
+            <section class="sidebar-section">
+
+                <h2>Find People</h2>
+
+                <form id="userSearchForm">
+
+                    <input
+                        id="userSearchInput"
+                        type="text"
+                        maxlength="24"
+                        placeholder="Search username..."
+                    >
+
+                </form>
+
+                <div id="searchResults"></div>
+
+            </section>
+
+
+            <section class="sidebar-section">
+
+                <h2>Online</h2>
+
+                <div id="onlineUsers"></div>
+
+            </section>
+
+        </aside>
+
+
+        <!-- =================================
+             CHAT
+        ================================== -->
+
+        <section class="chat-panel">
+
+            <div
+                id="connectionStatus"
+                class="connection-status"
+            >
+                Connecting...
+            </div>
+
+
+            <div
+                id="messages"
+                class="messages"
+            ></div>
+
+
+            <form
+                id="messageForm"
+                class="message-form"
+            >
+
+                <input
+                    id="messageInput"
+                    type="text"
+                    maxlength="500"
+                    placeholder="Type a message..."
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Send
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================
+         PROFILE
+    ================================== -->
+
+    <div
+        id="profileModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-card">
+
+            <button
+                id="closeProfile"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+            <h2>Your Profile</h2>
+
+
+            <div class="profile-editor">
+
+                <img
+                    id="profileAvatar"
+                    class="profile-avatar"
+                    src="resources/images/logo.png"
+                    alt="Profile picture"
+                >
+
+                <label
+                    for="avatarInput"
+                    class="file-button"
+                >
+                    Change Picture
+                </label>
+
+                <input
+                    id="avatarInput"
+                    type="file"
+                    accept="image/png,image/jpeg"
+                    hidden
+                >
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <span>Username</span>
+
+                <strong id="profileUsername">
+                    User
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================
+         SETTINGS
+    ================================== -->
+
+    <div
+        id="settingsModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-card settings-card">
+
+            <button
+                id="closeSettings"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+            <h2>Settings</h2>
+
+
+            <section class="settings-section">
+
+                <h3>Appearance</h3>
+
+                <label class="setting-row">
+
+                    <span>Theme</span>
+
+                    <select id="themeSelect">
+
+                        <option value="dark">
+                            Dark
+                        </option>
+
+                        <option value="light">
+                            Light
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </section>
+
+
+            <section class="settings-section">
+
+                <h3>Account</h3>
+
+
+                <button
+                    id="changeUsernameButton"
+                    class="settings-button"
+                    type="button"
+                >
+                    Change Username
+                </button>
+
+
+                <button
+                    id="changePasswordButton"
+                    class="settings-button"
+                    type="button"
+                >
+                    Change Password
+                </button>
+
+            </section>
+
+
+            <section class="settings-section danger">
+
+                <h3>Danger Zone</h3>
+
+                <button
+                    id="deleteAccountButton"
+                    class="danger-button"
+                    type="button"
+                >
+                    Delete Account
+                </button>
+
+            </section>
+
+
+            <button
+                id="logoutButton"
+                class="settings-button"
+                type="button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================
+         SETTINGS BUTTON
+    ================================== -->
+
+    <button
+        id="settingsButton"
+        class="floating-settings"
+        type="button"
+        title="Settings"
+    >
+        ⚙
+    </button>
+
+
+</section>
+
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="account.js"></script>
+<script src="profile.js"></script>
+<script src="friends.js"></script>
+<script src="settings.js"></script>
+
+</body>
+</html>

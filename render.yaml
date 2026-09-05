@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: butterfly-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: node server/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: BUTTERFLY_PUBLIC_URL
+        sync: false
+      - key: BUTTERFLY_FRONTEND_URL
+        sync: false
+      - key: BUTTERFLY_SMTP_HOST
+        value: smtp.gmail.com
+      - key: BUTTERFLY_SMTP_PORT
+        value: "587"
+      - key: BUTTERFLY_SMTP_SECURE
+        value: "false"
+      - key: BUTTERFLY_SMTP_USER
+        sync: false
+      - key: BUTTERFLY_SMTP_PASS
+        sync: false
+      - key: BUTTERFLY_EMAIL_FROM
+        sync: false
