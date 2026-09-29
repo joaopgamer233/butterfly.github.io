@@ -1,100 +1,214 @@
 # 🦋 Butterfly
 
-**Butterfly** is a web-based real-time chat platform.
+Butterfly is a real-time online chat platform.
 
-## 📁 Main Files
-
-Butterfly uses three main frontend files:
+## Architecture
 
 ```text
-butterfly.github.io/
-├── index.html
-├── style.css
-└── app.js
+GitHub Pages
+https://joaopgamer233.github.io/butterfly.github.io/
+        │
+        │ HTTPS / WSS
+        ▼
+Node.js Butterfly backend
+        │
+        ├── SQLite
+        ├── authentication
+        ├── friends
+        ├── profiles
+        └── chat
+             │
+             ▼
+        Python Snake Mailer 🐍📧
+             │
+             ▼
+        Gmail / Outlook / other SMTP
 ```
 
-### `index.html`
+## Frontend
 
-The main webpage for Butterfly.
-
-It loads the user interface and connects the other frontend files:
-
-```html
-<link rel="stylesheet" href="style.css">
-<script src="app.js"></script>
-```
-
-### `style.css`
-
-Contains the visual design of Butterfly, including:
-
-* Layout
-* Colors
-* Buttons
-* Chat interface
-* Login/register screens
-* Profiles
-* Settings
-* Responsive design
-
-It is loaded by `index.html` using:
-
-```html
-<link rel="stylesheet" href="style.css">
-```
-
-### `app.js`
-
-Contains the main JavaScript functionality for Butterfly.
-
-It is loaded by `index.html` using:
-
-```html
-<script src="app.js"></script>
-```
-
-It handles things such as:
-
-* Chat functionality
-* User interface interactions
-* WebSocket communication
-* Login/session handling
-* Sending and receiving messages
-
-## ▶️ Running Butterfly
-
-You can run Butterfly using a local web server or host it using **GitHub Pages**.
-
-### GitHub Pages
-
-Butterfly is available at:
-
-**https://joaopgamer233.github.io/butterfly.github.io/**
-
-GitHub Pages serves `index.html`, which then loads:
+GitHub Pages loads:
 
 ```text
 index.html
-   │
-   ├── style.css
-   │
-   └── app.js
+style.css
+config.js
+app.js
+account.js
+profile.js
+friends.js
+settings.js
+resources/
 ```
 
-Make sure all three files are located in the same directory.
+`config.js` contains the public backend URL. It must never contain SMTP passwords or other secrets.
 
-## 🛠️ Development
+## Backend
 
-When modifying Butterfly:
+The Node.js backend is:
 
-1. Edit `index.html` for the webpage structure.
-2. Edit `style.css` for the appearance.
-3. Edit `app.js` for the functionality.
-4. Refresh the webpage to see your changes.
+```text
+server/server.js
+server/database.js
+server/auth.js
+server/email.py
+```
 
-## 🦋 Project
+Node.js handles the real-time application and Python handles email delivery.
 
-**Butterfly**
+## Python Snake Mailer
+
+`server/email.py` uses only Python's standard library.
+
+It reads one JSON request from stdin and sends the email through SMTP.
+
+It supports Gmail, Outlook, and other SMTP providers.
+
+### Gmail
+
+Use a Google **App Password** instead of your normal Google account password.
+
+Configure `.env`:
+
+```text
+BUTTERFLY_SMTP_HOST=smtp.gmail.com
+BUTTERFLY_SMTP_PORT=587
+BUTTERFLY_SMTP_SECURE=false
+BUTTERFLY_SMTP_USER=yourgmail@gmail.com
+BUTTERFLY_SMTP_PASS=your_gmail_app_password
+BUTTERFLY_EMAIL_FROM=yourgmail@gmail.com
+```
+
+## Account verification
+
+```text
+Register
+   ↓
+Node creates account
+   ↓
+Python Snake Mailer sends email
+   ↓
+User clicks "Verify my email"
+   ↓
+GitHub Pages opens with ?verify=TOKEN
+   ↓
+app.js sends token to Node backend
+   ↓
+Node verifies token
+   ↓
+Account becomes verified
+   ↓
+User can log in
+```
+
+Verification tokens expire after 10 minutes.
+
+## Password recovery
+
+Password recovery uses a six-digit email code.
+
+## Username changes
+
+Changing a username requires a six-digit code sent to the account email.
+
+## Account deletion
+
+Deleting an account requires a six-digit code sent to the account email.
+
+## Profile pictures
+
+Profile pictures are resized in the browser to 256×256 JPEG before being sent to the server.
+
+The WebSocket message is:
+
+```js
+{
+    type: "update_profile",
+    avatar: "..."
+}
+```
+
+## Local setup
+
+Install Node.js and Python.
+
+Then:
+
+```powershell
+npm.cmd install
+```
+
+Copy:
+
+```text
+.env.example
+```
+
+to:
+
+```text
+.env
+```
+
+Configure the SMTP settings.
+
+Start Butterfly:
+
+```powershell
+npm.cmd start
+```
+
+The backend will run on:
+
+```text
+http://localhost:3000
+```
+
+Health check:
+
+```text
+http://localhost:3000/health
+```
+
+## GitHub Pages setup
+
+Edit:
+
+```text
+config.js
+```
+
+and replace:
+
+```js
+BACKEND_URL: "http://localhost:3000"
+```
+
+with the public HTTPS URL of your deployed Butterfly backend.
+
+For example:
+
+```js
+window.BUTTERFLY_CONFIG = {
+    BACKEND_URL: "https://your-butterfly-backend.example.com"
+};
+```
+
+The production WebSocket connection automatically becomes `wss://`.
+
+## Important
+
+Never put these in GitHub Pages:
+
+```text
+.env
+SMTP passwords
+Gmail App Passwords
+database files
+private API keys
+session secrets
+```
+
+GitHub Pages is the frontend. The Node.js server is the backend.
+
 © 2026 Studio Gimmicks
-
-A real-time web chat platform.

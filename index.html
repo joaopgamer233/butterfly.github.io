@@ -232,8 +232,8 @@
         >
 
             <p>
-                Check your email for your
-                verification code.
+                Check your email for a
+                <strong>Verify my email</strong> link.
             </p>
 
             <form id="verificationForm">
@@ -242,9 +242,8 @@
                     id="verificationCode"
                     type="text"
                     maxlength="6"
-                    placeholder="6-digit code"
+                    placeholder="6-digit code (optional fallback)"
                     inputmode="numeric"
-                    required
                 >
 
                 <button type="submit">
@@ -258,7 +257,7 @@
                 class="link-button"
                 type="button"
             >
-                Resend verification email
+                Resend Verification Email
             </button>
 
         </div>
@@ -557,6 +556,14 @@
                     Change Username
                 </button>
 
+                <button
+                    id="confirmUsernameButton"
+                    class="settings-button"
+                    type="button"
+                >
+                    Confirm Username Change
+                </button>
+
 
                 <button
                     id="changePasswordButton"
@@ -579,6 +586,14 @@
                     type="button"
                 >
                     Delete Account
+                </button>
+
+                <button
+                    id="confirmDeleteButton"
+                    class="danger-button"
+                    type="button"
+                >
+                    Confirm Account Deletion
                 </button>
 
             </section>

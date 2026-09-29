@@ -1,6 +1,5 @@
-// Public frontend configuration. Do NOT put passwords or API keys here.
+// Butterfly frontend configuration.
+// GitHub Pages hosts these files; the Node.js backend runs separately.
 window.BUTTERFLY_CONFIG = {
-    // Replace this with your deployed backend URL.
-    // Example: https://butterfly-api.example.com
-    BACKEND_URL: "https://joaopgamer233.github.io/butterfly.github.io/"
+    BACKEND_URL: "http://localhost:3000"
 };
